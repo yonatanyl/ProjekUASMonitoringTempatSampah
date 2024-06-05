@@ -87,12 +87,17 @@ void loop() {
   Serial.println(" cm");
   
   // Mengirim pesan ke Bot Telegram jika tempat sampah penuh
-  if (jarak <= 5 || berat >= 50.0) {  // Kapasitas maksimum 5 kg
-    String message = "Tempat Sampah Penuh!\n";
-    message += "Berat sampah: " + String(berat) + " KG";
-    myBot.sendMessage(chat_id, message);
-    Serial.println("Tempat Sampah Penuh! Pesan Terkirim ke Bot Telegram");
-  }
-  
-  delay(1000); // Berikan jeda satu detik
+if (jarak <= 5 || berat >= 5.0) {  // Kapasitas maksimum 5 kg
+  String message = "Tempat Sampah Penuh!\n";
+  message += "Berat sampah: " + String(berat) + " KG";
+  myBot.sendMessage(chat_id, message);
+  Serial.println("Tempat Sampah Penuh! Pesan Terkirim ke Bot Telegram");
+} else {
+  String message = "Tempat Sampah Masih Cukup.\n";
+  message += "Berat sampah: " + String(berat) + " KG\n";
+  message += "Jarak ke sampah teratas: " + String(jarak) + " cm";
+  myBot.sendMessage(chat_id, message);
+  Serial.println("Tempat Sampah Masih Cukup. Pesan Terkirim ke Bot Telegram");
+}
+  delay(8000); // Berikan jeda satu detik
 }
